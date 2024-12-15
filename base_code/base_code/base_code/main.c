@@ -22,21 +22,15 @@ static int choice;
 int main() {
 	// To initialize the health data object
     HealthData healthdata = {0};
-    Exercise exercises[100]; 
-    Diet diets[100];
-    int exercise_count = 0;
-    int diet_count = 0;
-    int choice;
-    
     // Tocode: to read the list of the exercises and diets
     // 241215 : load function bringing in
-    loadExercise(EXERCISEFILEPATH,exercises,&exercise_count);
-    loadDiets(DIETFILEPATH, diets, &diet_count);
+    loadExercise(EXERCISEFILEPATH);
+    loadDiets(DIETFILEPATH);
     
 
     // ToCode: to run the "Healthcare Management Systems" until all calories are used up or the user wants to exit the system
     do {
-    	if (health_data.calories_intake >= 2000){
+    	if (health_data.total_calories_intake >= 2000){
             printf("You have consumed all your calories for today! \n");
 		} 
 		else{

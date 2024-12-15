@@ -27,7 +27,7 @@ int exercise_list_size = 0;
     241215 : I wrote 'loadExercises' function. 
 */
 
-void loadExercises(const char *EXERCISEFILEPATH, Exercise exercises[], int *exercise_count) {
+void loadExercises(const char *EXERCISEFILEPATH){
     FILE *file = fopen(EXERCISEFILEPATH, "r");
     if (file == NULL) {
         printf("There is no file for exercises! \n");
@@ -37,8 +37,8 @@ void loadExercises(const char *EXERCISEFILEPATH, Exercise exercises[], int *exer
     // ToCode: to read a list of the exercises from the given file
     // 241215 : I wrote function so that it can read exercises.txt and saved in structure
     // 
-    *exercise_count=0;
-    while (fscanf(file,"%s %d",exercises[*exercise_count].name,&exercises[*exercise_count].calories_per_minute)) {
+    int exercise_count=0;
+    while (fscanf(file,"%s %d",exercises[exercise_count].name,&exercises[*exercise_count].calories_per_minute)) {
     	
         if (exercise_list_size >= MAX_EXERCISES){  //it is process checking maximum size
         	printf("[Warning!!]Exceeded maximum size.");
