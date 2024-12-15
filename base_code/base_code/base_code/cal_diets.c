@@ -18,8 +18,8 @@
 
 
 // list of diets 
-static Diet diet_list[MAX_DIETS];
-static int diet_list_size = 0;
+static int diet_count = 0;            
+static Diet diets[MAX_DIETS];         
 
 
 /*
@@ -35,9 +35,9 @@ void loadDiets(const char* DIETFILEPATH) {
 
      // ToCode: to read a list of the diets from the given file
     diet_count = 0;
-    while (fscanf(file, "%s %d", diets[*diet_count].name, &diets[*diet_count].calories) != EOF) {
+    while (fscanf(file, "%s %d", diets[diet_count].food_name, &diets[diet_count].calories_intake) != EOF) {
     	 diet_count++;
-        if (diet_list_size >= MAX_DIETS){
+        if (diet_count >= MAX_DIETS){
         	printf("[Warning!!]Exceeded maximum size.");
         	break;
 		}
@@ -60,8 +60,8 @@ void inputDiet(HealthData* health_data) {
     // ToCode: to provide the options for the diets to be selected
     // 241215 : print the list of diets.
     printf("The list of diets:\n");
-    for (int i = 0; i < diet_count; i++) {
-        printf("%d. %s (%d kcal)\n", i + 1, diets[i].name, diets[i].calories);
+    for (i=0; i < diet_count; i++) {
+        printf("%d. %s (%d kcal)\n", i + 1, diets[i].food_name, diets[i].calories_intake);
     }
     printf("%d. Exit\n", diet_count + 1);
     
@@ -82,20 +82,19 @@ void inputDiet(HealthData* health_data) {
 
     // ToCode: to enter the selected diet in the health data
     // 241215 : 
-     int calories_intake = diets[choice - 1].calories;
-    health_data->calories_intake += calories_intake;
+    int calories_intake = diets[choice - 1].calories_intake;
+    health_data->total_calories_intake += calories_intake;
 
     printf("You have consumed %d kcal by eating %s.\n", 
-           calories_intake, diets[choice - 1].name);
+           calories_intake, diets[choice - 1].food_name);
     
 
     // ToCode: to enter the total calories intake in the health data
-    int calories_intake = diets[choice - 1].calories; // 선택한 식단의 칼로리 값 가져오기
-    health_data->calories_intake += calories_intake; // HealthData에 칼로리 추가
+    health_data->total_calories_intake += calories_intake; 
 
      // 사용자에게 결과 출력
     printf("You have consumed %d kcal by eating %s.\n", 
-       calories_intake, diets[choice - 1].name);
+       calories_intake, diets[choice - 1].food_name);
 
 }
 

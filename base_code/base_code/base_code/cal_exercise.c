@@ -18,14 +18,22 @@
 
 
 // To declare the structure of the exercises
-static Exercise exercise_list[MAX_EXERCISES];
-int exercise_list_size = 0;
+
+typedef struct {
+    char exercise_name[MAX_EXERCISE_NAME_LEN]; 
+    int calories_burned_per_minute;          
+} Exercises;
+
+static Exercise exercises[MAX_EXERCISES];
+static int exercise_list_size = 0;
+static int exercise_count;
 
 
 /*
     description : read the information in "excercises.txt"
     241215 : I wrote 'loadExercises' function. 
 */
+
 
 void loadExercises(const char *EXERCISEFILEPATH){
     FILE *file = fopen(EXERCISEFILEPATH, "r");
@@ -36,15 +44,13 @@ void loadExercises(const char *EXERCISEFILEPATH){
 
     // ToCode: to read a list of the exercises from the given file
     // 241215 : I wrote function so that it can read exercises.txt and saved in structure
-    // 
-    int exercise_count=0;
-    while (fscanf(file,"%s %d",exercises[exercise_count].name,&exercises[*exercise_count].calories_per_minute)) {
+    while (fscanf(file,"%s %d",exercises[exercise_count].exercise_name,&exercises[exercise_count].calories_burned_per_minute)) {
     	
         if (exercise_list_size >= MAX_EXERCISES){  //it is process checking maximum size
         	printf("[Warning!!]Exceeded maximum size.");
         	break;
 		}
-		(*exercise_count)++;
+		exercise_count++;
     }
 
     fclose(file);
@@ -67,8 +73,8 @@ void inputExercise(HealthData* health_data) {
     // ToCode: to provide the options for the exercises to be selected
     // 241215 : I wrote 'print the list of exercises'
     printf("The list of exercises: \n");
-    for (int i=0, i<exercise_count; i++){
-    	printf("%d. %s (%d kcal/min)\n", i + 1, exercises[i].name, exercises[i].calories_per_minute);
+    for (i=0; i<exercise_count; i++){
+    	printf("%d. %s (%d kcal/min)\n", i + 1, exercises[i].exercise_name, exercises[i].calories_burned_per_minute);
     }
     printf("%d. Exit\n", exercise_count + 1);
 	
@@ -96,10 +102,10 @@ void inputExercise(HealthData* health_data) {
     }
 
     // ToCode: to enter the selected exercise and total calcories burned in the health data
-    int calories_burned = exercises[choice - 1].calories_per_minute * duration;
-    health_data->calories_burned += calories_burned;
+    int calories_burned = exercises[choice - 1].calories_burned_per_minute * duration;
+    health_data->total_calories_burned += calories_burned;
 
     printf("You have burned %d kcal by doing %s for %d minutes.\n", 
-           calories_burned, exercises[choice - 1].name, duration);
+           calories_burned, exercises[choice - 1].exercise_name, duration);
 
 }

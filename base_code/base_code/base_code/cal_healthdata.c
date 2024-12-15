@@ -35,15 +35,15 @@ void saveData(const char* HEALTHFILEPATH, const HealthData* health_data) {
     // ToCode: to save the chosen exercise and total calories burned 
     // 241215 : exercise
     fprintf(file, "[Exercises] \n");
-    for (int i = 0; i < health_data->exercise_count; i++) {
-        fprintf(file, "%s: %d kcal\n", health_data->exercises[i].name, health_data->exercises[i].calories_burned);
+    for (i = 0; i < health_data->exercise_count; i++) {
+        fprintf(file, "%s: %d kcal\n", health_data->exercises[i].exercise_name, health_data->exercises[i].calories_burned_per_minute);
     }
     
     // ToCode: to save the chosen diet and total calories intake 
     // 241215 : excercise
     fprintf(file, "\n[Diets] \n");
-    for (int i = 0; i < health_data->diet_count; i++) {
-        fprintf(file, "%s: %d kcal\n", health_data->diets[i].name, health_data->diets[i].calories);
+    for (i = 0; i < health_data->diet_count; i++) {
+        fprintf(file, "%s: %d kcal\n", health_data->diet[i].food_name, health_data->diet[i].calories_intake);
     }
 
     // ToCode: to save the total remaining calrories
@@ -73,16 +73,16 @@ void printHealthData(const HealthData* health_data) {
 	// ToCode: to print out the saved history of exercises
 	// 241215
 	printf("=========================== History of Exercise =======================\n");
-    for (int i = 0; i < health_data->exercise_count; i++) {
-        printf("%d. %s: %d kcal\n", i + 1, health_data->exercises[i].name, health_data->exercises[i].calories_burned);
+    for (i = 0; i < health_data->exercise_count; i++) {
+        printf("%d. %s: %d kcal\n", i + 1, health_data->exercises[i].exercise_name, health_data->exercises[i].calories_burned_per_minute);
     }
   
     printf("=======================================================================\n");
 
     // ToCode: to print out the saved history of diets
     printf("============================= History of Diet =========================\n");
-    for (int i = 0; i < health_data->diet_count; i++) {
-        printf("%d. %s: %d kcal\n", i + 1, health_data->diets[i].name, health_data->diets[i].calories);
+    for (i = 0; i < health_data->diet_count; i++) {
+        printf("%d. %s: %d kcal\n", i + 1, health_data->diet[i].food_name, health_data->diet[i].calories_intake);
     }
 
     printf("=======================================================================\n");

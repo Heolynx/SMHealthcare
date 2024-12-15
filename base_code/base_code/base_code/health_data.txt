@@ -1,11 +1,11 @@
 [Exercises] 
-walking - 20 kcal
-Total calories burned: 20 kcal 
+walking - 92 kcal
+Total calories burned: 92 kcal 
 
 [Diets] 
-rice - 600 kcal
-Total calories intake: 600 kcal 
+chicken - 925 kcal
+Total calories intake: 925 kcal 
 
 [Total] 
 Basal metabolic rate: 1300 kcal
-The remaining calories: -720 kcal
+The remaining calories: -467 kcal

@@ -22,15 +22,17 @@ static int choice;
 int main() {
 	// To initialize the health data object
     HealthData healthdata = {0};
+    int choice;  
+    
+    
     // Tocode: to read the list of the exercises and diets
     // 241215 : load function bringing in
-    loadExercise(EXERCISEFILEPATH);
+    loadExercises(EXERCISEFILEPATH);
     loadDiets(DIETFILEPATH);
-    
 
     // ToCode: to run the "Healthcare Management Systems" until all calories are used up or the user wants to exit the system
     do {
-    	if (health_data.total_calories_intake >= 2000){
+    	if (healthdata.total_calories_intake >= 2000){
             printf("You have consumed all your calories for today! \n");
 		} 
 		else{
@@ -48,15 +50,15 @@ int main() {
 		// ToCode: to run the sysmtem based on the user's choice
         switch (choice) {
             case 1:
-            	inputExercise(&health_data, exercises, exercise_count);
+            	inputExercise(&healthdata);
                 break;
                 
             case 2:
-            	inputDiet(&health_data, diets, diet_count);
+            	inputDiet(&healthdata);
                 break;
                 
             case 3:
-            	printHealthData(&health_data);
+            	printHealthData(&healthdata);
                 break;
                 
             case 4:
@@ -68,7 +70,7 @@ int main() {
                 printf("[Error] Invalid option. \n");
                 printf("Please try again! \n");
         }
-    } while (health_data.calories_intake < 2000 && choice != 4);
+    } while (healthdata.total_calories_intake < 2000 && choice != 4);
 
     return 0;
 }
