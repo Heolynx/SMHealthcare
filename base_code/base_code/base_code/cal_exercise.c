@@ -3,7 +3,7 @@
 //  Excercise for Calorie Diary
 //
 //  Created by Eunju Cha
-//
+//  and mastered by Chaeeun Heo
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,9 +24,10 @@ int exercise_list_size = 0;
 
 /*
     description : read the information in "excercises.txt"
+    241215 : I wrote 'loadExercises' function. 
 */
 
-void loadExercises(const char* EXERCISEFILEPATH) {
+void loadExercises(const char *EXERCISEFILEPATH, Exercise exercises[], int *exercise_count) {
     FILE *file = fopen(EXERCISEFILEPATH, "r");
     if (file == NULL) {
         printf("There is no file for exercises! \n");
@@ -34,11 +35,16 @@ void loadExercises(const char* EXERCISEFILEPATH) {
     }
 
     // ToCode: to read a list of the exercises from the given file
-    while ( ) {
+    // 241215 : I wrote function so that it can read exercises.txt and saved in structure
+    // 
+    *exercise_count=0;
+    while (fscanf(file,"%s %d",exercises[*exercise_count].name,&exercises[*exercise_count].calories_per_minute)) {
     	
-        if (exercise_list_size >= MAX_EXERCISES){
+        if (exercise_list_size >= MAX_EXERCISES){  //it is process checking maximum size
+        	printf("[Warning!!]Exceeded maximum size.");
         	break;
 		}
+		(*exercise_count)++;
     }
 
     fclose(file);
@@ -59,18 +65,41 @@ void inputExercise(HealthData* health_data) {
     int choice, duration, i;
     
     // ToCode: to provide the options for the exercises to be selected
+    // 241215 : I wrote 'print the list of exercises'
     printf("The list of exercises: \n");
-
-
+    for (int i=0, i<exercise_count; i++){
+    	printf("%d. %s (%d kcal/min)\n", i + 1, exercises[i].name, exercises[i].calories_per_minute);
+    }
+    printf("%d. Exit\n", exercise_count + 1);
+	
     // ToCode: to enter the exercise to be chosen with exit option
-
- 
+    // 241215 : I wrote 'select exercise'
+    printf("Choose an exercise (1-%d):", exercise_count + 1);
+    scanf("%d", &choice); 
     
+    if (choice == exercise_count + 1) {
+        printf("Exit selected. No exercise recorded.\n");
+        return; // 241215 : option exit 
+    } else if (choice < 1 || choice > exercise_count) {
+        printf("[Warning] Invalid option selected.\n");
+        return; // 241215 : invalid input
+    }
+ 
     // To enter the duration of the exercise
+    // 241215 : I wrote the duration of the exercise. 
     printf("Enter the duration of the exercise (in min.): ");
     scanf("%d", &duration);
+    
+    if (duration <= 0) {
+        printf("[Warning] Duration must be a positive number.\n");
+        return; // 241215: invalid input
+    }
 
     // ToCode: to enter the selected exercise and total calcories burned in the health data
-    
+    int calories_burned = exercises[choice - 1].calories_per_minute * duration;
+    health_data->calories_burned += calories_burned;
+
+    printf("You have burned %d kcal by doing %s for %d minutes.\n", 
+           calories_burned, exercises[choice - 1].name, duration);
 
 }

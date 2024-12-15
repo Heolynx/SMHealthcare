@@ -34,9 +34,11 @@ void loadDiets(const char* DIETFILEPATH) {
     }
 
      // ToCode: to read a list of the diets from the given file
-    while () {
-    	
+    *diet_count = 0;
+    while (fscanf(file, "%s %d", diets[*diet_count].name, &diets[*diet_count].calories) != EOF) {
+    	 (*diet_count)++;
         if (diet_list_size >= MAX_DIETS){
+        	printf("[Warning!!]Exceeded maximum size.");
         	break;
 		}
     }
@@ -56,17 +58,44 @@ void inputDiet(HealthData* health_data) {
     int choice, i;
     
     // ToCode: to provide the options for the diets to be selected
+    // 241215 : print the list of diets.
     printf("The list of diets:\n");
+    for (int i = 0; i < diet_count; i++) {
+        printf("%d. %s (%d kcal)\n", i + 1, diets[i].name, diets[i].calories);
+    }
+    printf("%d. Exit\n", diet_count + 1);
     
     
 	// ToCode: to enter the diet to be chosen with exit option
+	// 241215 : select diets
+	 printf("Choose a diet (1-%d): ", diet_count + 1);
+    scanf("%d", &choice);
+
+    if (choice == diet_count + 1) {
+        printf("Exit selected. No diet recorded.\n");
+        return; // option of end
+    } else if (choice < 1 || choice > diet_count) {
+        printf("[Error] Invalid option selected.\n");
+        return; // 유invalid input
+    }
     
 
     // ToCode: to enter the selected diet in the health data
+    // 241215 : 
+     int calories_intake = diets[choice - 1].calories;
+    health_data->calories_intake += calories_intake;
+
+    printf("You have consumed %d kcal by eating %s.\n", 
+           calories_intake, diets[choice - 1].name);
     
 
     // ToCode: to enter the total calories intake in the health data
+    int calories_intake = diets[choice - 1].calories; // 선택한 식단의 칼로리 값 가져오기
+    health_data->calories_intake += calories_intake; // HealthData에 칼로리 추가
 
+     // 사용자에게 결과 출력
+    printf("You have consumed %d kcal by eating %s.\n", 
+       calories_intake, diets[choice - 1].name);
 
 }
 
