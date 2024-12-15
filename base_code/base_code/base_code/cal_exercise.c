@@ -4,6 +4,7 @@
 //
 //  Created by Eunju Cha
 //  and mastered by Chaeeun Heo
+// 241215 : exercise.c file -> error presents;; I am searching the solution... 
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,23 +36,26 @@ static int exercise_count;
 */
 
 
-void loadExercises(const char *EXERCISEFILEPATH){
-    FILE *file = fopen(EXERCISEFILEPATH, "r");
+void loadExercises(const char *path){
+    FILE *file = fopen(path, "r");
     if (file == NULL) {
         printf("There is no file for exercises! \n");
         return;
     }
+    
+   
 
     // ToCode: to read a list of the exercises from the given file
     // 241215 : I wrote function so that it can read exercises.txt and saved in structure
-    while (fscanf(file,"%s %d",exercises[exercise_count].exercise_name,&exercises[exercise_count].calories_burned_per_minute)) {
-    	
-        if (exercise_list_size >= MAX_EXERCISES){  //it is process checking maximum size
+    exercise_count=0;
+    while (fscanf(file,"%s %d",exercises[exercise_count].exercise_name, &exercises[exercise_count].calories_burned_per_minute)==2) {
+		if (exercise_count >= MAX_EXERCISES){  //it is process checking maximum size
+            exercise_count++;
         	printf("[Warning!!]Exceeded maximum size.");
         	break;
 		}
-		exercise_count++;
     }
+    
 
     fclose(file);
 }
@@ -104,6 +108,7 @@ void inputExercise(HealthData* health_data) {
     // ToCode: to enter the selected exercise and total calcories burned in the health data
     int calories_burned = exercises[choice - 1].calories_burned_per_minute * duration;
     health_data->total_calories_burned += calories_burned;
+    
 
     printf("You have burned %d kcal by doing %s for %d minutes.\n", 
            calories_burned, exercises[choice - 1].exercise_name, duration);
