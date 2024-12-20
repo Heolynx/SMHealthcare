@@ -3,7 +3,7 @@
 //  Calorie Diary
 //
 //  Created by Eunju Cha
-//
+//  masterde by HCE 2413274
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,11 +17,11 @@
 #define DIETFILEPATH "diets.txt"
 #define HEALTHFILEPATH "health_data.txt"
 
+static int choice;
+
 int main() {
-	
 	// To initialize the health data object
-    HealthData healthdata = {0};
-    int choice;  
+    HealthData healthdata = {0};  
     
     // Tocode: to read the list of the exercises and diets
     // 241215 : load function bringing in
@@ -29,6 +29,7 @@ int main() {
     loadDiets(DIETFILEPATH);
     
     // ToCode: to run the "Healthcare Management Systems" until all calories are used up or the user wants to exit the system
+    // 241220 : HCE wrote systems with switchm and fill out the if and while, switch
     do {
     	if (healthdata.total_calories_intake >= 2000){
             printf("You have consumed all your calories for today! \n");
@@ -69,7 +70,7 @@ int main() {
                 printf("[Error] Invalid option. \n");
                 printf("Please try again! \n");
         }
-    } while (healthdata.total_calories_intake < 2000 && choice != 4);
+    } while (healthdata.total_calories_intake < 2000 && choice != 4);           //241220 if intake is not 2000 or choice is wrong -> keep going
 
     return 0;
 }
