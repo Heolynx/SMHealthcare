@@ -42,6 +42,7 @@ void loadExercises(const char *path){
         return;
     }
     
+    
    
 
     // ToCode: to read a list of the exercises from the given file
