@@ -91,9 +91,6 @@ void inputDiet(HealthData* health_data) {
     // ToCode: to enter the total calories intake in the health data
     health_data->total_calories_intake += calories_intake; 
 
-     // 사용자에게 결과 출력
-    printf("You have consumed %d kcal by eating %s.\n", 
-       calories_intake, diets[choice - 1].food_name);
 
 }
 

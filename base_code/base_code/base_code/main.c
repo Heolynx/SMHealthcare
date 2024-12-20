@@ -18,7 +18,7 @@
 #define HEALTHFILEPATH "health_data.txt"
 
 int main() {
-    
+	
 	// To initialize the health data object
     HealthData healthdata = {0};
     int choice;  

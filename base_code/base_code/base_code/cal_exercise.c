@@ -25,9 +25,8 @@ typedef struct {
     int calories_burned_per_minute;          
 } Exercises;
 
-static Exercise exercises[MAX_EXERCISES];
-static int exercise_list_size = 0;
-static int exercise_count;
+Exercise exercises[MAX_EXERCISES];
+int exercise_count;
 
 
 /*
@@ -48,9 +47,9 @@ void loadExercises(const char *path){
     // ToCode: to read a list of the exercises from the given file
     // 241215 : I wrote function so that it can read exercises.txt and saved in structure
     exercise_count=0;
-    while (fscanf(file,"%s %d",exercises[exercise_count].exercise_name, &exercises[exercise_count].calories_burned_per_minute)==2) {
+    while (fscanf(file,"%s %d",exercises[exercise_count].exercise_name, &exercises[exercise_count].calories_burned_per_minute)!=EOF) {
+		exercise_count++;
 		if (exercise_count >= MAX_EXERCISES){  //it is process checking maximum size
-            exercise_count++;
         	printf("[Warning!!]Exceeded maximum size.");
         	break;
 		}
@@ -112,5 +111,7 @@ void inputExercise(HealthData* health_data) {
 
     printf("You have burned %d kcal by doing %s for %d minutes.\n", 
            calories_burned, exercises[choice - 1].exercise_name, duration);
+           
+
 
 }
