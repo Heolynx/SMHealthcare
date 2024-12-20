@@ -41,9 +41,6 @@ void loadExercises(const char *path){
         printf("There is no file for exercises! \n");
         return;
     }
-    
-    
-   
 
     // ToCode: to read a list of the exercises from the given file
     // 241215 : I wrote function so that it can read exercises.txt and saved in structure
@@ -106,10 +103,9 @@ void inputExercise(HealthData* health_data) {
     }
 
     // ToCode: to enter the selected exercise and total calcories burned in the health data
+    // 241215 :  array starts 0. so choice -1 wrote
     int calories_burned = exercises[choice - 1].calories_burned_per_minute * duration;
     health_data->total_calories_burned += calories_burned;
-    
-
     printf("You have burned %d kcal by doing %s for %d minutes.\n", 
            calories_burned, exercises[choice - 1].exercise_name, duration);
            

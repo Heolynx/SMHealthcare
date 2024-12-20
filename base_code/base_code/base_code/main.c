@@ -20,6 +20,7 @@
 static int choice;
 
 int main() {
+	
 	// To initialize the health data object
     HealthData healthdata = {0};  
     

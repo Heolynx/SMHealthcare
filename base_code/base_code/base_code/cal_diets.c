@@ -81,14 +81,14 @@ void inputDiet(HealthData* health_data) {
     
 
     // ToCode: to enter the selected diet in the health data
-    // 241215 : 
+    // 241215 :
     int calories_intake = diets[choice - 1].calories_intake;
-
     printf("You have consumed %d kcal by eating %s.\n", 
            calories_intake, diets[choice - 1].food_name);
     
 
     // ToCode: to enter the total calories intake in the health data
+    // I did it
     health_data->total_calories_intake += calories_intake; 
 
 
