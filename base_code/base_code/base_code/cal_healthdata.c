@@ -31,7 +31,6 @@ void saveData(const char* HEALTHFILEPATH, const HealthData* health_data) {
         printf("There is no file for health data.\n");
 		return;
        }
-           printf("File opened successfully.\n");
     
 
     // ToCode: to save the chosen exercise and total calories burned 

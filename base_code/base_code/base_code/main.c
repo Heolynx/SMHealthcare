@@ -65,6 +65,8 @@ int main() {
             case 4:
     			printf("Exit the system.\n");
     			printf("=======================================================================\n");
+    			 // 241220 : save data 
+                saveData(HEALTHFILEPATH, &healthdata);
                 break;
                 
             default:

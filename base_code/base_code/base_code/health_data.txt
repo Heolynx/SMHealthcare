@@ -1,0 +1,11 @@
+[Exercises] 
+riding - 150 kcal
+
+[Diets] 
+chicken - 925 kcal
+tteokbokki - 615 kcal
+
+[Total] 
+Calories burned: 150
+Calories intake: 1540
+Remaining calories: 3390

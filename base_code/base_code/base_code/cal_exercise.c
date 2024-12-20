@@ -19,15 +19,9 @@
 
 
 // To declare the structure of the exercises
-
-typedef struct {
-    char exercise_name[MAX_EXERCISE_NAME_LEN]; 
-    int calories_burned_per_minute;          
-} Exercises;
-
-Exercise exercises[MAX_EXERCISES];
-int exercise_count;
-
+static Exercise exercise_list[MAX_EXERCISES];
+int exercise_list_size=0;
+static int exercise_count=0; //// I wrote the variation. here is no error....
 
 /*
     description : read the information in "excercises.txt"
@@ -45,10 +39,9 @@ void loadExercises(const char *path){
     // ToCode: to read a list of the exercises from the given file
     // 241215 : I wrote function so that it can read exercises.txt and saved in structure
     exercise_count=0;
-    while (fscanf(file,"%s %d",exercises[exercise_count].exercise_name, &exercises[exercise_count].calories_burned_per_minute)!=EOF) {
+    while (fscanf(file,"%s %d",exercise_list[exercise_count].exercise_name, &exercise_list[exercise_count].calories_burned_per_minute)!=EOF) {
 		exercise_count++;
 		if (exercise_count >= MAX_EXERCISES){  //it is process checking maximum size
-        	printf("[Warning!!]Exceeded maximum size.");
         	break;
 		}
     }
@@ -75,7 +68,7 @@ void inputExercise(HealthData* health_data) {
     // 241215 : I wrote 'print the list of exercises'
     printf("The list of exercises: \n");
     for (i=0; i<exercise_count; i++){
-    	printf("%d. %s (%d kcal/min)\n", i + 1, exercises[i].exercise_name, exercises[i].calories_burned_per_minute);
+    	printf("%d. %s (%d kcal/min)\n", i + 1, exercise_list[i].exercise_name, exercise_list[i].calories_burned_per_minute);
     }
     printf("%d. Exit\n", exercise_count + 1);
 	
@@ -104,10 +97,16 @@ void inputExercise(HealthData* health_data) {
 
     // ToCode: to enter the selected exercise and total calcories burned in the health data
     // 241215 :  array starts 0. so choice -1 wrote
-    int calories_burned = exercises[choice - 1].calories_burned_per_minute * duration;
+    int calories_burned = exercise_list[choice - 1].calories_burned_per_minute * duration;
     health_data->total_calories_burned += calories_burned;
+    
+    Exercise exercise = exercise_list[choice - 1]; // 241220 : I had many error this part..... I searched the solution and found 'strcpy'.
+    strcpy(health_data->exercises[health_data->exercise_count].exercise_name, exercise.exercise_name); // 241220 copy exercise name to health_data
+    health_data->exercises[health_data->exercise_count].calories_burned_per_minute = calories_burned; //241220 copy exercise calories to health_data
+    health_data->exercise_count++; 
+    
     printf("You have burned %d kcal by doing %s for %d minutes.\n", 
-           calories_burned, exercises[choice - 1].exercise_name, duration);
+           calories_burned, exercise_list[choice - 1].exercise_name, duration);
            
 
 

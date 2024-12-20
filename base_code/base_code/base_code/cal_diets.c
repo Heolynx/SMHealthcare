@@ -3,7 +3,7 @@
 //  Diets for Calorie Diary
 //
 //  Created by Eunju Cha
-//
+// Mastered by HCE 2413274
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,9 +17,10 @@
 #define MAX_FOOD_NAME_LEN 50		// Maximum length of the name of food
 
 
-// list of diets 
-static int diet_count = 0;            
-static Diet diets[MAX_DIETS];         
+// list of diets         
+static Diet diets[MAX_DIETS];    
+static int diet_list_size=0;     
+static int diet_count; // I wrote the variation. here is no error....
 
 
 /*
@@ -34,11 +35,12 @@ void loadDiets(const char* DIETFILEPATH) {
     }
 
      // ToCode: to read a list of the diets from the given file
+     // 241220 : I wrote to read a list of the diets from the given file. and != EOF is that fscanf reads the end of the file.
+     
     diet_count = 0;
     while (fscanf(file, "%s %d", diets[diet_count].food_name, &diets[diet_count].calories_intake) != EOF) {
     	 diet_count++;
         if (diet_count >= MAX_DIETS){
-        	printf("[Warning!!]Exceeded maximum size.");
         	break;
 		}
     }
@@ -82,10 +84,13 @@ void inputDiet(HealthData* health_data) {
 
     // ToCode: to enter the selected diet in the health data
     // 241215 :
+    Diet diet = diets[choice - 1]; // 241220 : I had many error this part..... I searched the solution and found 'strcpy'.
     int calories_intake = diets[choice - 1].calories_intake;
-    printf("You have consumed %d kcal by eating %s.\n", 
-           calories_intake, diets[choice - 1].food_name);
-    
+    // 241220 :  241220 : I had many error this part..... I searched the solution and found 'strcpy'.
+    printf("You have consumed %d kcal by eating %s.\n", calories_intake, diets[choice - 1].food_name);
+    strcpy(health_data->diet[health_data->diet_count].food_name, diet.food_name); // 241220 copy diet name to health_data
+    health_data->diet[health_data->diet_count].calories_intake = calories_intake; //241220 copy diet calories to health_data
+    health_data->diet_count++; 
 
     // ToCode: to enter the total calories intake in the health data
     // I did it
